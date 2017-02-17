@@ -4,13 +4,14 @@ Servo servo;
 Servo servom;
 
 int distStop = 10;
-int dist, cm, svet1, svet2, black, white, midLight;
-int rotation = 1.31;  //roatain *
-int k = 900;          // rotation +
-int speed1 = 1650;    // normal spped
+int dist, cm, svet, svet1, svet2, black, white, midLight, svetRange;
+int servoRange = 1800 - 1050; // range of values of serva
+int rotation = 1.31;          //roatain *
+int k = 1500;                  // rotation +
+int speed1 = 1650;            // normal speed
 
-void buzz3sec() {
-  for (int i = 0; i < 1500; i++) {
+void buzz1sec() {
+  for (int i = 0; i < 500; i++) {
     digitalWrite(10, HIGH);
     delay(1);
     digitalWrite(10, LOW);
@@ -37,12 +38,12 @@ void setup() {
   while (true) {
     bool flag = 0;
     if (digitalRead(27) == LOW) {
-      buzz3sec();
+      buzz1sec();
 
       black = analogRead(A7);
       while (true) {
         if (digitalRead(27) == LOW) {
-          buzz3sec();
+          buzz1sec();
           delay(1000);
           white = analogRead(A7);                     //----------------------------// detecting white and black values at this very place
           flag = 1;
@@ -56,7 +57,10 @@ void setup() {
   }
   Serial.println(white);
   Serial.println(black);
-  midLight = (white + black) / 2;
+  svetRange = white - black;
+  rotation = servoRange / svetRange;
+  Serial.println(svetRange);
+  Serial.println(servoRange);
 }
 //----------------------------------------------------------------------//
 void loop() {
@@ -66,12 +70,13 @@ void loop() {
   //-----------------------------------------------------------------------------//driving
   svet1 = analogRead(A7);          // white-850; black - 220
   svet2 =  analogRead(A8);
-  if (svet1 > midLight && svet1 < white) {
-    servo.write(1050);
-  } else {
-    servo.write(1800);
-  }
-  Serial.println(svet1);
+  svet = svet1 - svet2;
+
+  servo.write((svet * rotation) + k);
+
+  Serial.println(svet);
+  Serial.println(rotation);
+  Serial.println(svet * rotation) + k;
 
 
 
