@@ -4,11 +4,11 @@ Servo servo;
 Servo servom;
 
 int distStop = 10;
-int dist, cm, svet, svet1, svet2, black, white, midLight, svetRange;
+int dist, cm, svet, svet1, svet2, black, white, midLight;
 int servoRange = 1800 - 1050; // range of values of serva
-int rotation = 1.31;          //roatain *
+float rotation, svetRange;         //roatain *
 int k = 1080;                  // rotation +
-int speed1 = 1650;            // normal speed
+int speed1 = 0;            // normal speed
 
 void buzz1sec() {
   for (int i = 0; i < 500; i++) {
@@ -24,7 +24,7 @@ void setup() {
   pinMode(15, OUTPUT); // motor
   servo.attach(14);    //1050 - straight right   1800 - straight left
   servom.attach(15);
-  delay(500);
+  delay(2000);
   Serial.begin(9600);
   pinMode(10, OUTPUT); // buzz
   pinMode(27, INPUT);  // button
@@ -55,28 +55,31 @@ void setup() {
       }
     }
   }
-  Serial.println(white);
+ /* Serial.println(white);
   Serial.println(black);
   svetRange = white - black;
   rotation = servoRange / svetRange;
-  Serial.println(svetRange);
-  Serial.println(servoRange);
+  Serial.print(svetRange);
+  Serial.print(" ");
+  Serial.print(servoRange);
+  Serial.print(" ");
+  Serial.println(rotation);*/
 }
 //----------------------------------------------------------------------//
 void loop() {
 
-  servom.write(speed1);        //  speed things
+  //servom.write(speed1);        //  speed things
 
   //-----------------------------------------------------------------------------//driving
   svet1 = analogRead(A7);          // white-850; black - 220
   svet2 =  analogRead(A8);
   svet = svet1 - svet2;
 
-  servo.write((svet * rotation) + k);
+   servo.write((svet * rotation) + k);
 
-  Serial.println(svet);
+ /* Serial.println(svet);
   Serial.println(rotation);
-  Serial.println(svet * rotation) + k;
+  Serial.println(svet * rotation) + k;*/
 
 
 
@@ -86,11 +89,14 @@ void loop() {
   //-----------------------------------------------------------------//
 
   //-------------------------------------------------------------------------------//
+  
+  Serial.println((5222 / (analogRead(A6) - 13)));
   if ((5222 / (analogRead(A6) - 13)) <= distStop) {
-    while (true) {
+  
+   /* while (true) {
       servom.write(0);                                                                   // stop in case of another car
       Serial.println(1000);
-    }
+    }*/
   }
   //-------------------------------------------------------------------------------------//
 }
