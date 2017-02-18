@@ -7,7 +7,7 @@ int distStop = 10;
 int dist, cm, svet, svet1, svet2, black, white, midLight, svetRange;
 int servoRange = 1800 - 1050; // range of values of serva
 int rotation = 1.31;          //roatain *
-int k = 1500;                  // rotation +
+int k = 1080;                  // rotation +
 int speed1 = 1650;            // normal speed
 
 void buzz1sec() {
