@@ -62,13 +62,13 @@ const int trimPin = A0;
 int i = 0;
 
 void setup() {
-  pinMode(buttonPin, INPUT);
-  pinMode(inaPin, OUTPUT);
-  pinMode(inbPin, OUTPUT);
-  pinMode(pwmPin, OUTPUT);
-  pinMode(diagaPin, INPUT);
-  pinMode(diagbPin, INPUT);
-  pinMode(trimPin, INPUT);
+  pinMode(buttonPin, INPUT);     //pins on motor driver ↓↓
+  pinMode(inaPin, OUTPUT);   //5
+  pinMode(inbPin, OUTPUT);   //4
+  pinMode(pwmPin, OUTPUT);   //6
+  pinMode(diagaPin, INPUT);  //7
+  pinMode(diagbPin, INPUT);  //8
+  pinMode(trimPin, INPUT);   // any sensor
  
 }
 
