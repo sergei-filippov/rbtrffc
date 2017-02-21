@@ -10,7 +10,7 @@ pinMode(15,OUTPUT);
   }
 void loop() {
 
-  for( i = 90; i<=180; i++){
+/*  for( i = 90; i<=180; i++){
      servom.write(i);
      delay(30);
      Serial.println(i);
@@ -26,8 +26,8 @@ void loop() {
      servom.write(i);
      delay(30);
      Serial.println(i);
-  }
+  }*/
     
-// servom.write(1);
+ servom.write(2000);
 
 }

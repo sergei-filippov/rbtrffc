@@ -4,13 +4,14 @@ int p;
 bool f;
 void setup() {
   servo.attach(14);
+  delay(1000);
   Serial.begin(9600);
-  servo.write(1450);
+  servo.write(90);
 
 }
 
 void loop() {
-  for(int i =1050;i<1840;i++){
+ /* for(int i =1050;i<1840;i++){
     Serial.println(i);
     servo.write(i);
       delay(10);
@@ -19,7 +20,7 @@ void loop() {
     Serial.println(i);
     servo.write(i);
       delay(10);
-  }
+  }*/
    /*// p=map( analogRead(14), 0, 1023, 0, 180);
    p=analogRead(14);
     Serial.println(p);
