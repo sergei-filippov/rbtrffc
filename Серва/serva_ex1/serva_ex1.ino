@@ -6,7 +6,7 @@ void setup() {
   servo.attach(14);
   delay(1000);
   Serial.begin(9600);
-  servo.write(90);
+  servo.write(60);
 
 }
 
