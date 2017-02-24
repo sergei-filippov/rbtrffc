@@ -5,10 +5,11 @@ Servo servo;
 Servo servom;
 
 int distStop = 20;
-int dist, cm, svet, svet1, svet2, black, white, midLight, signalIr, stopLine;
+int dist, cm, svet, svet1, svet2, black1, white1, black2, white2, midLight, signalIr, stopLine, svet2Range, svet1Range, flag;
 int servoRange = 1800 - 1050; // range of values of serva
-float rotation, svetRange;         //rotation * // range of possible lighting
-int k = 1450;                  // rotation +
+float  svetRange;         //rotation * // range of possible lighting
+int k2To1;                // coefficient that change svet2Range to svet1Range
+int k1Toservo;            // coefficient that change svet2Range to servoRange
 int speed1 = 1620;            // normal speed
 
 //---------------------------------------------------------------------------------------------------------//IRDA
@@ -58,17 +59,17 @@ void setup() {
 
   //---------------------------------------------------------------------------------------------------------//
   while (true) {
-    bool flag = 0;
+    flag = 0;
     if (digitalRead(27) == LOW) {
-      black = analogRead(A7);
+      black1 = analogRead(A7);
+      black2 = analogRead(A8);
+      flag = 1;
       buzz1sec();
       while (true) {
         if (digitalRead(27) == LOW) {
-          white = analogRead(A7);
+          white1 = analogRead(A7);
+          white2 = analogRead(A8);
           buzz1sec();
-          delay(1000);
-          //----------------------------// detecting white and black edge values at this very place
-          flag = 1;
           break;
         }
       }
@@ -77,17 +78,20 @@ void setup() {
       }
     }
   }
-  midLight = (white + black) / 2;
-  svetRange = white - black;
-  rotation = servoRange / (2 * svetRange);
 
-  Serial.println(white);
-  Serial.println(black);
-  Serial.print(2 * svetRange);
+
+  svet1Range = white1 - black1;
+  svet2Range = white2 - black2;
+  k2To1 = svet1Range / (2 * svet2Range);
+  k1Toservo = servoRange / (2 * svet1Range) ;
+ 
+
+  Serial.println( svet1Range);
+  Serial.println( svet2Range);
+  Serial.print(k2To1);
   Serial.print(" ");
-  Serial.print(servoRange);
+  Serial.print(k1Toservo);
   Serial.print(" ");
-  Serial.println(rotation);
 
 }
 //-----------------------------------------------------------------------------------------------//
@@ -98,19 +102,19 @@ void loop() {
   //-----------------------------------------------------------------------------//driving
   svet1 = analogRead(A7);          // white-850; black - 220
   svet2 =  analogRead(A8);
-  svet = svet1 - svet2;
+  svet = svet1 - (svet2 * k2To1 + 1500);
 
-  servo.write(1500 + (svet / 1.7));
+  servo.write(svet * k1Toservo + 1500);
   //servo.write(1500+svet);
 
   /* Serial.print(svet1);
      Serial.print(" ");
      Serial.println(svet2);*/
-  // Serial.println(rotation);
+   Serial.println((svet * k1Toservo + 1500));
   /* Serial.print(svet);
     Serial.print(" ");
     Serial.println(1500+(svet*rotation));*/
-  Serial.println((svet * rotation) + k);
+
 
 
 
