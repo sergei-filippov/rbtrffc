@@ -5,12 +5,13 @@ Servo servo;
 Servo servom;
 
 int distStop = 20;
-int dist, cm, svet, svet1, svet2, black1, white1, black2, white2, midLight, signalIr, stopLine, svet2Range, svet1Range, flag;
+int dist, cm, svet, svet1, svet2, black1, white1, black2, white2, midLight, signalIr, stopLine, flag;
 int servoRange = 1800 - 1050; // range of values of serva
+float svet2Range, svet1Range;
 float  svetRange;         //rotation * // range of possible lighting
-int k2To1;                // coefficient that change svet2Range to svet1Range
-int k1Toservo;            // coefficient that change svet2Range to servoRange
-int speed1 = 1620;            // normal speed
+float k2To1;                // coefficient that change svet2Range to svet1Range
+float k1Toservo;            // coefficient that change svet2Range to servoRange
+int speed1 = 1680;            // normal speed
 
 //---------------------------------------------------------------------------------------------------------//IRDA
 void flash() {
@@ -82,10 +83,10 @@ void setup() {
 
   svet1Range = white1 - black1;
   svet2Range = white2 - black2;
-  k2To1 = svet1Range / (2 * svet2Range);
-  k1Toservo = servoRange / (2 * svet1Range) ;
- 
+  k2To1 = svet1Range / ( svet2Range);
+  k1Toservo = servoRange / (2* svet1Range) ;
 
+ // Serial.println( k2To1 = svet1Range / ( svet2Range));
   Serial.println( svet1Range);
   Serial.println( svet2Range);
   Serial.print(k2To1);
@@ -102,15 +103,15 @@ void loop() {
   //-----------------------------------------------------------------------------//driving
   svet1 = analogRead(A7);          // white-850; black - 220
   svet2 =  analogRead(A8);
-  svet = svet1 - (svet2 * k2To1 + 1500);
+  svet = svet1 - (svet2 * k2To1);
 
   servo.write(svet * k1Toservo + 1500);
   //servo.write(1500+svet);
 
-  /* Serial.print(svet1);
-     Serial.print(" ");
-     Serial.println(svet2);*/
-   Serial.println((svet * k1Toservo + 1500));
+  Serial.print(svet1);
+  Serial.print(" ");
+  Serial.println(svet2 * k2To1);
+  Serial.println((svet * k1Toservo + 1500));
   /* Serial.print(svet);
     Serial.print(" ");
     Serial.println(1500+(svet*rotation));*/

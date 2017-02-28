@@ -13,9 +13,9 @@ int speed1 = 1620;            // normal speed
 
 //---------------------------------------------------------------------------------------------------------//IRDA
 void flash() {
-  if (Serial3.available()) {
+  if (Serial2.available()) {
     stopLine = analogRead(A6);
-    signalIr = Serial3.read();
+    signalIr = Serial2.read();
     if (signalIr == 0 || signalIr == 1 || signalIr == 4 || signalIr == 3 || signalIr == 5) {     //red //red+yellow // yellow // blinking green // pedestrian crossing
       speed1 = 1600;                                            // starts moving slower
       if (stopLine <= midLight) {                              // car on a stop line //
