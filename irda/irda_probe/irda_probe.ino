@@ -1,7 +1,7 @@
 void setup() {
-  //Serial3.begin(115200);
+  Serial3.begin(115200);
   //Serial2.begin(115200);
-    Serial1.begin(115200);
+  //  Serial1.begin(115200);
     pinMode(50,INPUT);
     pinMode(51,OUTPUT);
     pinMode(52,INPUT);
@@ -15,6 +15,9 @@ void setup() {
 }
 
 void loop() {
+  if(Serial3.available()){
+  Serial.println(Serial3.read());
+  delay(10);}
   //Serial.println(Serial3.read());
    // Serial.println(Serial2.read());
    //if(Serial1.available()){
