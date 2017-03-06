@@ -51,29 +51,35 @@
 //  start to rotate CCW direction.
 
 
-const int inaPin = 13;  //26
-const int inbPin = 9;   //27
-const int pwmPin = 11;  //2
-const int diagaPin = 10;  //24
-const int diagbPin = 12;   //25
-const int buttonPin = 2;
-const int trimPin = A0;
+const int inaPin = 26;  //26
+const int inbPin = 27;   //27
+const int pwm = 3;  //2
+const int diagaPin = 24;  //24
+const int diagbPin = 25;   //25
+//const int buttonPin = 2;
+//const int trimPin = A0;
 
-int i = 0;
+//int i = 0;
 
 void setup() {
-  pinMode(buttonPin, INPUT);     //pins on motor driver ↓↓
-  pinMode(inaPin, OUTPUT);   //5
+//  pinMode(buttonPin, INPUT);    
+  pinMode(inaPin, OUTPUT);   //50
   pinMode(inbPin, OUTPUT);   //4
-  pinMode(pwmPin, OUTPUT);   //6
+  pinMode(pwm, OUTPUT);   //6
   pinMode(diagaPin, INPUT);  //7
   pinMode(diagbPin, INPUT);  //8
-  pinMode(trimPin, INPUT);   // any sensor
+//  pinMode(trimPin, INPUT);   // any sensor
 
 }
 
 void loop() {
-
+  digitalWrite(inaPin, LOW);
+ digitalWrite(inbPin, HIGH);
+ for(int i = 0;i<255;i+=2){
+ analogWrite(pwm, i);
+ delay(100);
+}
+/*
   // CW
   digitalWrite(inaPin, HIGH);
   digitalWrite(inbPin, LOW);
@@ -108,5 +114,5 @@ void loop() {
   while (digitalRead(buttonPin) == HIGH);
   while (digitalRead(buttonPin) == LOW);
   delay(500);
-
+*/
 }
