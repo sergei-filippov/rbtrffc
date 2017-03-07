@@ -68,16 +68,15 @@ void setup() {
   pinMode(pwm, OUTPUT);   //6
   pinMode(diagaPin, INPUT);  //7
   pinMode(diagbPin, INPUT);  //8
-//  pinMode(trimPin, INPUT);   // any sensor
+  
 
 }
 
 void loop() {
-  digitalWrite(inaPin, LOW);
- digitalWrite(inbPin, HIGH);
+
  //analogWrite(pwm, 255);
  for(int i = 0;i<255;i+=2){
- analogWrite(pwm, i);
+
  delay(100);
 }
 /*

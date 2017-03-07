@@ -6,11 +6,12 @@ void setup() {
   servo.attach(14);
   delay(1000);
   Serial.begin(9600);
-  servo.write(60);
+  servo.write(45);
 
 }
 
 void loop() {
+  Serial.println(servo.read());
  /* for(int i =1050;i<1840;i++){
     Serial.println(i);
     servo.write(i);
