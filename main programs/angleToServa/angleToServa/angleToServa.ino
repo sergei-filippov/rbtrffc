@@ -20,19 +20,20 @@ void setup() {
   digitalWrite(inaPin, LOW);
   digitalWrite(inbPin, HIGH);
 
-  Serial.begin(9600);
-   Serial1.begin(9600);
+  Serial.begin(115200);
+   Serial1.begin(115200);
   speed1 = 70; 
 }
 
 void loop() {
-  //angle = Serial1.read();
+  angle = Serial1.read();
   //  delay(10);
-  // servo.write(angle + 45);
-  servo.write(45);
+   servo.write(angle + 45);
+   Serial.println(angle);
 
-  // analogWrite(pwm, speed1);
-  /*Serial.print(analogRead(diagaPin));
+   analogWrite(pwm, speed1);
+   
+ /* Serial.print(analogRead(diagaPin));
     Serial.print(" ");
     Serial.println(analogRead(diagbPin));
     delay(500);*/
