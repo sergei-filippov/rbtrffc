@@ -7,6 +7,7 @@ const int inbPin = 27;   //27
 const int pwm = 4;  //2
 const int diagaPin = 24;  //24
 const int diagbPin = 25;   //25
+int incomingByte;
 void setup() {
 
   servo.attach(14);
@@ -22,23 +23,35 @@ void setup() {
 
   Serial.begin(115200);
    Serial1.begin(115200);
-  speed1 = 70; 
+ // speed1 = 70; 
 }
 
 void loop() {
-  angle = Serial1.read();
+ // servo.write(65);              //serva 55-125
+/* for(int i =55;i<115;i+=2){
+  servo.write(i);
+  delay(40);
+ }*/
+  if(Serial1.available()){
+  angle = Serial1.read()+90;
   //  delay(10);
-   servo.write(angle + 45);
-   Serial.println(angle);
-
-   analogWrite(pwm, speed1);
+   servo.write(angle);
+      Serial.print(angle);
+      Serial.print(" \n");
+  }
+/*if (Serial1.available() > 0) {
+    // read the oldest byte in the serial buffer:
+    incomingByte = Serial1.read();
+    Serial.print(incomingByte);
+    Serial.print(" \n");
+}*/
+ //  analogWrite(pwm, speed1);
    
  /* Serial.print(analogRead(diagaPin));
     Serial.print(" ");
     Serial.println(analogRead(diagbPin));
     delay(500);*/
 }
-
 
 
 
