@@ -33,10 +33,19 @@ void loop() {
   delay(40);
  }*/
   if(Serial1.available()){
+   // incomingByte = Serial1.read();
   angle = Serial1.read()+90;
+  Serial.print(angle);
+   Serial.print(" ");
+  if (angle > 156)
+  {
+    angle -= 256;
+  }
+   Serial.println(angle);
   //  delay(10);
    servo.write(angle);
-      Serial.print(angle);
+ //  Serial.print(angle);
+      //Serial.print(incomingByte);
       Serial.print(" \n");
   }
 /*if (Serial1.available() > 0) {
