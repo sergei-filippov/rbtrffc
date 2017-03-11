@@ -5,6 +5,7 @@ void setup() {
 }
 
 void loop() {
+  if(Serial3.available()){
  Serial.println(Serial3.read());
-
+  }
 }

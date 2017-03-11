@@ -1,7 +1,7 @@
 #include <FlexiTimer2.h>
 int colour;
 /*void flash() {
-  Serial.println(colour);
+ 
   
 }  */
 void setup() {
@@ -9,15 +9,15 @@ void setup() {
   pinMode(2, OUTPUT); //red
   pinMode(3, OUTPUT); // yellow
   pinMode(4, OUTPUT); // green
-/*  FlexiTimer2::set(20, flash); // 500ms period
-  FlexiTimer2::start();*/
+ // FlexiTimer2::set(20, flash); // 500ms period
+ // FlexiTimer2::start();
 
 
 }
 
 void loop() {
-  
-  /*digitalWrite(2, HIGH);
+   Serial.print(0x03);
+/*  digitalWrite(2, HIGH);
   colour = 0x00;
   delay(15000);
   digitalWrite(3, HIGH);
@@ -36,6 +36,6 @@ void loop() {
     digitalWrite(4, HIGH);
     delay(500);
   }
-  digitalWrite(4, LOW);*/
-   Serial.println(2);
+  digitalWrite(4, LOW);
+ //  Serial.println(2);*/
 }
