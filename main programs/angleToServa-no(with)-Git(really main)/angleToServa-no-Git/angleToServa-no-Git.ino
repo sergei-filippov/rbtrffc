@@ -9,7 +9,7 @@ const int diagaPin = 24;  //24
 const int diagbPin = 25;   //25
 int incomingByte;
 void setup() {
-
+  pinMode
   servo.attach(14);
   delay(1000);
   pinMode(inaPin, OUTPUT);   //50
