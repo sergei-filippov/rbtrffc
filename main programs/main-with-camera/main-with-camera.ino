@@ -1,7 +1,7 @@
 #include <Servo.h>
 Servo servo;
-
-int angle, speed1, irda, d1, d2, d3, distanceEdge,speedBeforCrossing;
+bool stopline;
+int angle, speed1, irda, d1, d2, d3, distanceEdge, speedBeforCrossing;
 const int inaPin = 26;
 const int inbPin = 27;
 const int pwm = 3;
@@ -22,13 +22,14 @@ void setup() {
   pinMode(diagaPin, INPUT);  //7
   pinMode(diagbPin, INPUT);  //8
 
-  pinMode(40, INPUT);     //stop-line existence
+
   digitalWrite(inaPin, LOW); // for motors
   digitalWrite(inbPin, HIGH);
 
   Serial.begin(115200);
   Serial1.begin(115200); //seeeduino
   Serial2.begin(115200); //irda
+  Serial3.begin(115200); //stopline
   speed1 = 70;
   distanceEdge = 20;
   speedBeforCrossing = 50;
@@ -46,34 +47,38 @@ void loop() {
   //------------------------------------------------------------//irda things
   irda = Serial2.read();
   if (irda == 0 || irda == 1 || irda == 4) { //if red,red+yellow,yellow
-     speed1 = speedBeforCrossing;
-     //program should wait for a stopline more intently. It helps to differ a crossing and a stopline.
+    speed1 = speedBeforCrossing;
+
   }
 
   //------------------------------------------------------------//
   //---------------------------------------------//stopline
-  if (digitalRead(40) == 1) {
-    speed1 = 0;
-    Serial.print("STOP");
-
+  if (Serial3.available()) {
+    stopline = Serial3.read();
+    Serial.println(stopline);
+    if (stopline) {
+      speed1 = 0;
+      Serial.print("STOP");
+    }
   }
+
   //-----------------------------------------------//
   //-----------------------------------------------------------//read from camera
   if (Serial1.available()) {
     // incomingByte = Serial1.read();
     angle = Serial1.read() + 90;
-    Serial.print(angle);
-    Serial.print(" ");
+    //     Serial.print(angle);
+    //   Serial.print(" ");
     if (angle > 156)
     {
       angle -= 256;
     }
-    Serial.println(angle);
+    //    Serial.println(angle);
     //  delay(10);
     servo.write(angle);
     //  Serial.print(angle);
     //Serial.print(incomingByte);
-    Serial.print(" \n");
+    //    Serial.print(" \n");
   }
   //----------------------------------------------------------//
   /*if (Serial1.available() > 0) {
